@@ -1,8 +1,14 @@
+import os
 import streamlit as st
 import google.generativeai as ai
+from dotenv import load_dotenv
 
 # Set the API key for the generative AI model
-ai.configure(api_key="AIzaSyCc3DsTqV344OfE7co6LmY0LnN2nLsw2tc")
+load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise RuntimeError("Set GEMINI_API_KEY in your .env file (see .env.example).")
+ai.configure(api_key=api_key)
 
 # System Prompt for the AI Code Reviewers
 sys_prompt = """
